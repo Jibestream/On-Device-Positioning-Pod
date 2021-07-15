@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'On-Device-Positioning-Pod_Example' do
+  pod 'On-Device-Positioning-Pod', :path => '../'
+
+  target 'On-Device-Positioning-Pod_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
