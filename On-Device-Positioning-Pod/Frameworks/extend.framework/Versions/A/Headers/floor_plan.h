@@ -20,15 +20,24 @@
 #import <Foundation/Foundation.h>
 #import "TDJSONSerializable.h"
 
+/// The FloorPlan class defines the information for a floor plan.
 @interface FloorPlan : NSObject <TDJSONSerializable>
 
+///  floor plan image file name
 @property (strong, nonatomic) NSString * file;
+/// human readable name of floor
 @property (strong, nonatomic) NSString * name;
+///  X coordinate of image left (meters)
 @property (nonatomic) float xMin;
+/// X coordinate of image right (meters)
 @property (nonatomic) float xMax;
+/// Y coordinate of image bottom (meters)
 @property (nonatomic) float yMin;
+/// Y coordinate of image top (meters)
 @property (nonatomic) float yMax;
+/// floor number
 @property (nonatomic) int floor;
+/// elevation above ground floor (meters)
 @property (nonatomic) float geoHeight;
 
 @end

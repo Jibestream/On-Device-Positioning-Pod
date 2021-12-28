@@ -20,42 +20,43 @@
 #ifndef TDNavOutput_h
 #define TDNavOutput_h
 
+/// This class defines all output information from the ODP positioning engine.
 @interface TDNavOutput : NSObject
 
-/*! @brief Estimated latitude (degrees) */
+/** Estimated latitude (degrees) */
 @property (nonatomic) double latitude;
 
-/*! @brief longitude Estimated longitude (degrees) */
+/** Estimated longitude (degrees) */
 @property (nonatomic) double longitude;
 
-/*! @brief Estimated bearing (degrees) */
+/** Estimated bearing (degrees) */
 @property (nonatomic) double bearing;
 
-/*! @brief Estimated magnetic heading (degrees) */
+/** Estimated magnetic heading (degrees) */
 @property (nonatomic) double viewHeading;
 
-/*! @brief Current floor */
+/** Estimated floor */
 @property (nonatomic) int floor;
 
-/*! @brief Estimated error of location (meters) */
+/** Estimated error of location (meters) */
 @property (nonatomic) double accuracyRadius;
 
-/*! @brief Timestamp of the utc time the sample was processed (seconds since unix rollover on January 1, 1970 00:00:00 UTC) */
+/** Timestamp of the utc time the sample was processed (seconds since unix rollover on January 1, 1970 00:00:00 UTC) */
 @property (nonatomic) double utc;
 
-/*! @brief Estimated local frame x location (meters) */
+/** Estimated local frame x location (meters) */
 @property (nonatomic) double x;
 
-/*! @brief Estimated local frame y location (meters) */
+/** Estimated local frame y location (meters) */
 @property (nonatomic) double y;
 
-/*! @brief Estimated error of local frame estimated x location (meters) */
+/** Estimated error of local frame estimated x location (meters) */
 @property (nonatomic) double xFom;
 
-/*! @brief Estimated error of local frame estimated y location (meters) */
+/** Estimated error of local frame estimated y location (meters) */
 @property (nonatomic) double yFom;
 
-/*!
+/**
  Bitfield:
  
  ACCELEROMETER = 0x0001
@@ -80,7 +81,7 @@
  */
 @property (nonatomic) int usedSystems;
 
-/*!
+/**
  Bitfield:
  
  xxxx xx00b = stationary (all bits must be zero)
@@ -97,7 +98,7 @@
  */
 @property (nonatomic) int dynamicState;
 
-/*!
+/**
  -1 = transitioning downward in pressure altitude
  
  1 = transitioning upward in pressure altitude
@@ -106,7 +107,7 @@
  */
 @property (nonatomic) double elevationState;
 
-/*! @brief Boolean indicating whether or not the device is exceeding 25 mph */
+/** Boolean indicating whether or not the device is exceeding 25 mph */
 @property (nonatomic) bool pdrSpeedLimitExceeded;
 
 @end

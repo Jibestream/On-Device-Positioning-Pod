@@ -36,18 +36,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Extend Delegate
 
+/// Methods to receive event notifications from the Extend service.
 @protocol OnExtendDelegate <NSObject>
 
 @required
 
-/*!
+/**
  Called when the OnExtendDelegate is ready to report events.
  
  @param ready If true, the services are ready for use, else the system has timebombed.
  */
 - (void)onReady:(bool)ready;
 
-/*!
+/**
  Called when the registration query returns and the authentication key has been evaluated. If the key is valid, it's value is cached so that subsequent key validation attempts can be done without a network connection. This cached value is stored for up to ninety days. After ninety days, the query is repeated to ensure validity.
  
  It is recommended that you set Extend subsystems here and start the Extend service here as no Extend methods (outside of -setOnExtendDelegate:) will be executed until the key has been validated.
@@ -56,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)onKeyValidation:(bool)validated;
 
-/*!
+/**
  Called when a new navigation solution is available. This delegate reports at rate of 32 hz. The returned TDNavOutput object encapsulates all of the necessary navigation engine values.
  
  @param navOutput TDNavOutput object containing all of the relevant navigation data.
@@ -65,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-/*!
+/**
  Called when the debug data has been updated.
  
  @warning This is used for testing purposes only. Do not base any critical functions of your application on this delegate as it's updated infrequently.
@@ -84,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) onUploadProgressUpdate: (int) percentage succeed: (int) succeedFileCount failed: (int) failedFileCount total: (int) totalFileCount ;
 
 
-/*!
+/**
  Called when you enter a new facility's bounding region, signifying this as the active facility. This is only called if it's the first time you enter a facility's bounding region or if you re-enter a facility after having been at another facility. If you only exit the facility's bounding region and re-enter the same facility's region without spending time at another facility, the -onRegionUpdateRegion: onRegionUpdateEntered: delegate will be called instead.
  
  @param name Name of the active facility (nullable).
@@ -99,9 +100,10 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+/// Base interface for the Extend service of the On-Device-Positioning(ODP) solution.
 @interface Extend : NSObject
 
-/*!
+/**
  The Extend constructor that passes along the activation key, server URL, OnExtendDelegate delegate and image downloading enable option. This is a singleton so any attempt to recreate the Extend object is ignored.
  
  @param key Activation key required for validation (nonnull).
@@ -112,7 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (Extend *)sharedExtendWithKey:(NSString *)key url:(NSString*)url delegate:(id<OnExtendDelegate>)delegate enableImageDownloading:(bool) enable;
 
-/*!
+/**
  The preferred Extend constructor that passes along the activation key, server URL and OnExtendDelegate delegate. This is a singleton so any attempt to recreate the Extend object is ignored.
  
  @param key Activation key required for validation (nonnull).
@@ -123,14 +125,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (Extend *)sharedExtendWithKey:(NSString *)key url:(nullable NSString*)url delegate:(nullable id<OnExtendDelegate>)delegate;
 
 
-/*!
+/**
  Checks if any Extend service systems are running.
  
  @return True if any extend service systems are running (mobility, vicinity).
  */
 - (bool)isServiceStarted;
 
-/*!
+/**
  Start Extend and any other enabled sub-systems. Call [extend stop]; to stop the services.
  
  It's recommended you call this method after -onKeyValidation: has returned as the method will not be executed unless the authentication key has been validated.
@@ -139,15 +141,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (bool)start;
 
-/*!
+/**
  Start Extend and any other enabled sub-systems at the specified location. Call [extend stop]; to stop the services.
  
  It's recommended you call this method after -onKeyValidation: has returned as the method will not be executed unless the authentication key has been validated.
  
  <pre>
  With this API, the sequence of location events used by navigation engine is below:
- 1). Use gps or location from network whichever is returned by the device.
- 2). If no gps or no location from network, SDK will use the preset values to start the SDK.
+ 1). Use gps or network location whichever is returned by the device.
+ 2). If no gps or network location, SDK will use the preset values to start the SDK.
  </pre>
  
  @param lat The initial desired latitude (degrees).
@@ -157,7 +159,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (bool)startLat:(double)lat lon:(double)lon floor:(int)floor;
 
-/*!
+/**
  Start Extend and any other enabled sub-systems at the specified location. Call [extend stop]; to stop the services.
  
  It's recommended you call this method after -onKeyValidation: has returned as the method will not be executed unless the authentication key has been validated.
@@ -178,7 +180,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (bool)startLat:(double)lat lon:(double)lon floor:(int)floor type:(int)type;
 
 
-/*!
+/**
  Stop all Extend and all active sub-systems. Call [extend start]; to restart these services.
  
  @return True if system is ready and authenticated, else false.
@@ -187,7 +189,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-/*!
+/**
  Provides the floor for a CLLocation object returned from the guidance system callback as an int.
  
  @param location CLLocation object to get floor
@@ -195,7 +197,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (int)getFloorForLocation:(CLLocation *)location;
 
-/*!
+/**
  Checks if the Vicinity sub-system has been enabled.
  
  @return True if Vicinity is enabled, otherwise false.
@@ -203,7 +205,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (bool)isVicinityEnabled;
 
 
-/*!
+/**
  Enables or disables the animation to smooth out the location update. Animation is disabled by default.
   
  @param enabled Set to true to enable or false to disable the animation.
@@ -211,7 +213,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)setAnimationEnabled:(bool)enabled;
 
-/*!
+/**
  Enables or disables the Vicinity sub-system. Vicinity is disabled by default.
  
  It's recommended you call this method after -onKeyValidation: has returned as the method will not be executed unless the authentication key has been validated.
@@ -222,14 +224,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (bool)setVicinityEnabled:(bool)enabled;
 
 
-/*!
+/**
  Returns an array of all of the facilities currently stored in the device's cache. The array is a list of these facility's filenames.
  
  @return List of facilities stored in the device's cache. If no facilities are currently stored, the array is empty.
  */
 - (NSArray *)getFacilities;
 
-/*!
+/**
  Pass in additional information to customize the navigation system.
  
  @warning Using this method may cause unforeseen results and therefore is not recommended. This is mainly used for debugging purposes only.
@@ -239,14 +241,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (bool)debug:(NSDictionary *)debugDictionary;
 
-/*!
+/**
  Debug support feature: uploading all logs to cloud.
  
  @return None.
  */
 - (void)uploadLogs;
 
-/*!
+/**
  Debug support feature: delete all logs.
  
  @return None.
@@ -255,7 +257,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-/*!
+/**
  Returns an NSDictionary containing Extend's version number and Navigation Engine's version number. The key name for the Extend version number is "ExtendSDKVersion" and the key name for the Navigation Engine number is "NavEngineVersion". The value's for these keys are string representations of the version numbers. This method is a class method.
  
  @return An NSDictionary of the Extend and Navigation Engine's current version numbers.
@@ -263,7 +265,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary *)version;
 
 
-/*!
+/**
  Turns logging of sensor data on or off (off by default).
  
  @param enabled True if you wish to log sensor data, false otherwise (false by default).
@@ -271,12 +273,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (bool)setLogWriting:(bool)enabled;
 
-/*!
+/**
  Clears all Extend related cached items. This includes device settings parameters and last known location variables.
  */
 - (void)clearMemory;
 
-/*!
+/**
  Returns a Vicinity floorplan image for a specified filename as an NSData object.
  
  @param filename The filename of the floorplan image (nonnull).
