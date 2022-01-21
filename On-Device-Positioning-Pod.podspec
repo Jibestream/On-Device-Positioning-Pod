@@ -27,6 +27,7 @@ s.version='1.5.6.1'
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '9.0'
+  s.static_framework = true
 
   s.source_files = 'On-Device-Positioning-Pod/Classes/**/*'
   s.vendored_frameworks = 'On-Device-Positioning-Pod/Frameworks/extend.framework'
