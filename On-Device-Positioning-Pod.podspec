@@ -30,7 +30,7 @@ s.version='1.5.6.2'
   s.static_framework = true
 
   s.source_files = 'On-Device-Positioning-Pod/Classes/**/*'
-  s.vendored_frameworks = 'On-Device-Positioning-Pod/Frameworks/extend.framework'
+  s.vendored_frameworks = 'On-Device-Positioning-Pod/Frameworks/extend.xcframework'
   # s.resource_bundles = {
   #   'On-Device-Positioning-Pod' => ['On-Device-Positioning-Pod/Assets/*.png']
   # }
