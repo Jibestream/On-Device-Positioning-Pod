@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'On-Device-Positioning-Pod'
-s.version='1.5.7.0-10-gffbf95e'
+s.version='1.5.7.1'
   s.summary          = 'Inpixon On Device PositioningPod.'
 
 # This description is used to generate tags and improve search results.
