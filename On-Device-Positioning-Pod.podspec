@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'On-Device-Positioning-Pod'
-s.version='1.5.7.1'
+s.version='2.0.0'
   s.summary          = 'Inpixon On Device PositioningPod.'
 
 # This description is used to generate tags and improve search results.
@@ -26,7 +26,7 @@ s.version='1.5.7.1'
   s.source           = { :git => 'https://github.com/jibestream/On-Device-Positioning-Pod.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.platform = :ios, '15.0'
   s.static_framework = true
 
   s.source_files = 'On-Device-Positioning-Pod/Classes/**/*'
